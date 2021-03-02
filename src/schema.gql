@@ -1,0 +1,98 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+  token: String
+  salt: String
+  name: String
+  posts: [Post!]
+}
+
+type Post {
+  id: ID!
+  title: String!
+  content: String
+  published: Boolean
+  author: User
+}
+
+type Query {
+  """It returns all registered users"""
+  users: [User!]!
+
+  """get one user by id"""
+  user(id: Float!): User!
+
+  """get one user by email and password"""
+  signInUser(data: SignInUserInput!): User!
+
+  """It returns all post published"""
+  posts: [Post!]!
+
+  """get post by Id"""
+  post(id: Float!): Post
+  feed: [Post!]
+}
+
+input SignInUserInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  """Create a new user"""
+  signUpUser(data: SignUpUserInput!): User!
+
+  """Update user"""
+  updateUser(data: UpdateUserInput!): User!
+
+  """Delete post"""
+  deleteUser(data: DeleteUserInput!): User!
+  createDraft(draftData: DraftDataInput!): Post
+  publish(id: Float!): Post
+
+  """Update post"""
+  updatePost(data: UpdatePostInput!): Post!
+
+  """Delete post"""
+  deletePost(data: DeletePostInput!): Post!
+}
+
+"""New User Input"""
+input SignUpUserInput {
+  name: String!
+  email: String!
+  password: String!
+  token: String
+  salt: String
+}
+
+input UpdateUserInput {
+  id: Float!
+  name: String!
+}
+
+input DeleteUserInput {
+  id: Float!
+}
+
+input DraftDataInput {
+  title: String!
+  content: String!
+  authorEmail: String!
+}
+
+input UpdatePostInput {
+  id: Float!
+  title: String!
+  content: String!
+  authorEmail: String!
+}
+
+input DeletePostInput {
+  id: Float!
+}
